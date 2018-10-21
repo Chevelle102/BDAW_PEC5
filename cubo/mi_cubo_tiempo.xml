@@ -1,0 +1,80 @@
+<Schema name="esquema_uah_tiempo">
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Rol">
+    <Hierarchy name="Rol" visible="true" hasAll="true" primaryKey="id">
+      <Table name="dim_rol">
+      </Table>
+      <Level name="Rol" visible="true" table="dim_rol" column="id" nameColumn="rol" ordinalColumn="rol" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Asignatura">
+    <Hierarchy name="Asignatura" visible="true" hasAll="true" primaryKey="id">
+      <Table name="dim_asignatura">
+      </Table>
+      <Level name="Asignatura" visible="true" table="dim_asignatura" column="id" nameColumn="asignatura" ordinalColumn="asignatura" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Curso">
+    <Hierarchy name="Curso" visible="true" hasAll="true" primaryKey="idcurso">
+      <Table name="dim_cursos">
+      </Table>
+      <Level name="Curso" visible="true" table="dim_cursos" column="idcurso" nameColumn="curso" ordinalColumn="curso" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Zona">
+    <Hierarchy name="Zona" visible="true" hasAll="true" primaryKey="idzona">
+      <Table name="dim_zonas">
+      </Table>
+      <Level name="Zona" visible="true" table="dim_zonas" column="idzona" nameColumn="zona" ordinalColumn="zona" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="TimeDimension" visible="true" highCardinality="false" name="tiempo">
+    <Hierarchy name="tiempo" visible="true" hasAll="true" primaryKey="fecha">
+      <Table name="dim_tiempo_batch">
+      </Table>
+      <Level name="a&#241;o" visible="true" column="anio" type="String" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never">
+      </Level>
+      <Level name="mes" visible="true" column="mes" type="String" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+      </Level>
+      <Level name="trimestre" visible="true" column="trimestre" type="String" uniqueMembers="false" levelType="TimeQuarters" hideMemberIf="Never">
+      </Level>
+      <Level name="semana" visible="true" column="semana" type="String" uniqueMembers="false" levelType="TimeWeeks" hideMemberIf="Never">
+      </Level>
+      <Level name="dia" visible="true" column="dia_semana" type="String" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="uah_batch" visible="true" cache="true" enabled="true">
+    <Table name="fact_salida_batch">
+    </Table>
+    <DimensionUsage source="Rol" name="Rol" visible="true" foreignKey="idrol" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Asignatura" name="Asignatura" visible="true" foreignKey="idasignatura" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Curso" name="Curso" visible="true" foreignKey="idcurso" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Zona" name="Zona" visible="true" foreignKey="idzona" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="tiempo" name="tiempo" visible="true" foreignKey="fecha" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="elipse" column="elipse" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="manoalzada" column="manoalzada" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="nota" column="nota" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="rectangulo" column="rectangulo" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="resaltar" column="resaltar" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="subrayar" column="subrayar" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="tachar" column="tachar" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="texto" column="texto" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
